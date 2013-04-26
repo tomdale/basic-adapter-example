@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Basic Adapter Example</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+  </head>
+  <body>
+    <script type="text/x-handlebars">
+      <div class="container">
+        <div class="row">
+          <div class="span4">
+            {{outlet}}
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/x-handlebars" id="index">
+        {{#each model}}
+          {{#linkTo 'photo' this}}
+            <img style="width: 200px; float: left;" {{bindAttr src=url}}>
+          {{/linkTo}}
+        {{/each}}
+      </ul>
+    </script>
+
+    <script type="text/x-handlebars" id="photo">
+      <img style="width: 200px" {{bindAttr src=url}}>
+      {{outlet}}
+      <p>
+
+      {{#linkTo 'index'}}Back to Photos{{/linkTo}}
+    </script>
+
+    <script type="text/x-handlebars" id="photo/index">
+      <p>{{description}}</p>
+      <button {{action 'edit'}}>Edit Description</button>
+    </script>
+
+    <script type="text/x-handlebars" id="photo/edit">
+      <form {{action 'save' model on="submit"}}>
+        <p>{{input type="text" value=description}}</p>
+        <input type="submit" value="Save">
+      </form>
+    </script>
+
+    <script src="/js/jquery-2.0.js"></script>
+    <script src="/js/handlebars-1.0.0.rc.3.js"></script>
+    <script src="/js/ember-1.0.rc.2.js"></script>
+    <script src="/js/ember-data-latest.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>
